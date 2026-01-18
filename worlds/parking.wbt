@@ -1,0 +1,62 @@
+#VRML_SIM R2023b utf8
+
+WorldInfo {
+  basicTimeStep 32
+}
+Viewpoint {
+  orientation -0.5774 0.5774 0.5774 2.1
+  position 6 8 12
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Floor {
+  size 20 20
+}
+Solid {
+  translation 4.05 0.4 2.75
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.75 0.2 0.2
+        roughness 0.4
+        metalness 0
+      }
+      geometry Box {
+        size 1.2 0.8 0.8
+      }
+    }
+  ]
+  name "obstacle_box_A2"
+  boundingObject Box {
+    size 1.2 0.8 0.8
+  }
+  physics Physics {
+    mass 5
+  }
+}
+Solid {
+  translation 1.35 0.5 15.25
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.2 0.3 0.75
+        roughness 0.45
+        metalness 0
+      }
+      geometry Cylinder {
+        height 1.0
+        radius 0.4
+      }
+    }
+  ]
+  name "obstacle_cylinder_B1"
+  boundingObject Cylinder {
+    height 1.0
+    radius 0.4
+  }
+  physics Physics {
+    mass 5
+  }
+}

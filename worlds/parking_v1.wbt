@@ -1,0 +1,382 @@
+#VRML_SIM R2023b utf8
+
+WorldInfo {
+  basicTimeStep 32
+}
+Viewpoint {
+  orientation -0.5774 0.5774 0.5774 2.1
+  position 0 18 18
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Floor {
+  size 30 12
+}
+Solid {
+  translation 0 0.25 -2.5
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.15 0.15 0.15
+        roughness 0.6
+        metalness 0
+      }
+      geometry Box {
+        size 24 0.5 0.2
+      }
+    }
+  ]
+  name "wall_left"
+  boundingObject Box {
+    size 24 0.5 0.2
+  }
+}
+Solid {
+  translation 0 0.25 5.5
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.15 0.15 0.15
+        roughness 0.6
+        metalness 0
+      }
+      geometry Box {
+        size 24 0.5 0.2
+      }
+    }
+  ]
+  name "wall_right"
+  boundingObject Box {
+    size 24 0.5 0.2
+  }
+}
+Solid {
+  translation 0 0.01 2
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 1 1
+        roughness 0.2
+        metalness 0
+      }
+      geometry Box {
+        size 24 0.02 0.05
+      }
+    }
+  ]
+  name "parking_line_edge"
+}
+Solid {
+  translation 0 0.01 5
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 1 1
+        roughness 0.2
+        metalness 0
+      }
+      geometry Box {
+        size 24 0.02 0.05
+      }
+    }
+  ]
+  name "parking_line_back"
+}
+Solid {
+  translation -12 0.01 3.5
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 1 1
+        roughness 0.2
+        metalness 0
+      }
+      geometry Box {
+        size 0.05 0.02 3
+      }
+    }
+  ]
+  name "parking_line_p1_start"
+}
+Solid {
+  translation -8 0.01 3.5
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 1 1
+        roughness 0.2
+        metalness 0
+      }
+      geometry Box {
+        size 0.05 0.02 3
+      }
+    }
+  ]
+  name "parking_line_p2_start"
+}
+Solid {
+  translation -4 0.01 3.5
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 1 1
+        roughness 0.2
+        metalness 0
+      }
+      geometry Box {
+        size 0.05 0.02 3
+      }
+    }
+  ]
+  name "parking_line_p3_start"
+}
+Solid {
+  translation 0 0.01 3.5
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 1 1
+        roughness 0.2
+        metalness 0
+      }
+      geometry Box {
+        size 0.05 0.02 3
+      }
+    }
+  ]
+  name "parking_line_p4_start"
+}
+Solid {
+  translation 4 0.01 3.5
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 1 1
+        roughness 0.2
+        metalness 0
+      }
+      geometry Box {
+        size 0.05 0.02 3
+      }
+    }
+  ]
+  name "parking_line_p5_start"
+}
+Solid {
+  translation 8 0.01 3.5
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 1 1
+        roughness 0.2
+        metalness 0
+      }
+      geometry Box {
+        size 0.05 0.02 3
+      }
+    }
+  ]
+  name "parking_line_p6_start"
+}
+Solid {
+  translation 12 0.01 3.5
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 1 1
+        roughness 0.2
+        metalness 0
+      }
+      geometry Box {
+        size 0.05 0.02 3
+      }
+    }
+  ]
+  name "parking_line_end"
+}
+Solid {
+  translation -10 0.02 4.6
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0 0 0
+        roughness 0.8
+        metalness 0
+      }
+      geometry Text {
+        string ["P1"]
+        fontStyle FontStyle {
+          size 0.4
+        }
+      }
+    }
+  ]
+  name "label_p1"
+}
+Solid {
+  translation -6 0.02 4.6
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0 0 0
+        roughness 0.8
+        metalness 0
+      }
+      geometry Text {
+        string ["P2"]
+        fontStyle FontStyle {
+          size 0.4
+        }
+      }
+    }
+  ]
+  name "label_p2"
+}
+Solid {
+  translation -2 0.02 4.6
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0 0 0
+        roughness 0.8
+        metalness 0
+      }
+      geometry Text {
+        string ["P3"]
+        fontStyle FontStyle {
+          size 0.4
+        }
+      }
+    }
+  ]
+  name "label_p3"
+}
+Solid {
+  translation 2 0.02 4.6
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0 0 0
+        roughness 0.8
+        metalness 0
+      }
+      geometry Text {
+        string ["P4"]
+        fontStyle FontStyle {
+          size 0.4
+        }
+      }
+    }
+  ]
+  name "label_p4"
+}
+Solid {
+  translation 6 0.02 4.6
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0 0 0
+        roughness 0.8
+        metalness 0
+      }
+      geometry Text {
+        string ["P5"]
+        fontStyle FontStyle {
+          size 0.4
+        }
+      }
+    }
+  ]
+  name "label_p5"
+}
+Solid {
+  translation 10 0.02 4.6
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0 0 0
+        roughness 0.8
+        metalness 0
+      }
+      geometry Text {
+        string ["P6"]
+        fontStyle FontStyle {
+          size 0.4
+        }
+      }
+    }
+  ]
+  name "label_p6"
+}
+Solid {
+  translation -6 0.4 3.4
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.75 0.2 0.2
+        roughness 0.4
+        metalness 0
+      }
+      geometry Box {
+        size 1.2 0.8 0.8
+      }
+    }
+  ]
+  name "obstacle_p2"
+  boundingObject Box {
+    size 1.2 0.8 0.8
+  }
+  physics Physics {
+    mass 5
+  }
+}
+Solid {
+  translation 6 0.4 3.6
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.2 0.3 0.75
+        roughness 0.45
+        metalness 0
+      }
+      geometry Box {
+        size 1.2 0.8 0.8
+      }
+    }
+  ]
+  name "obstacle_p5"
+  boundingObject Box {
+    size 1.2 0.8 0.8
+  }
+  physics Physics {
+    mass 5
+  }
+}
+AckermannVehicle {
+  translation -13 0.2 0
+  rotation 0 1 0 0
+  name "parking_car"
+  controller "parking_logger"
+  sensorsSlot [
+    DistanceSensor {
+      translation 1.2 0.35 0
+      rotation 0 1 0 0
+      name "ds_front"
+      lookupTable [
+        0 0 0
+        8 8 0
+      ]
+    }
+    DistanceSensor {
+      translation 0.2 0.35 0.7
+      rotation 0 1 0 1.5708
+      name "ds_right"
+      lookupTable [
+        0 0 0
+        5 5 0
+      ]
+    }
+  ]
+}

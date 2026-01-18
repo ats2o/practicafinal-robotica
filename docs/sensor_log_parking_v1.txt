@@ -1,0 +1,7 @@
+Ejemplo de salida esperada del controlador "parking_logger" (valores en unidades del sensor):
+
+Paso 1: ds_front=8.000 ds_right=3.120
+Paso 2: ds_front=8.000 ds_right=3.118
+Paso 3: ds_front=7.450 ds_right=3.120
+Paso 4: ds_front=6.900 ds_right=1.850
+Paso 5: ds_front=8.000 ds_right=4.900
