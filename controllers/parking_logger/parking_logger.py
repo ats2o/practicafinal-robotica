@@ -185,9 +185,9 @@ while driver.step() != -1:
     current_x = float(gps_vals[0])
     
     if maneuver_state == "FORWARD":
-        # Avanzar recto hsta X > 6.0
-        if current_x > 6.0:
-            print(f"[BMW] Llegada a X=6.0. Iniciando giro de 90 grados...")
+        # Avanzar recto hsta X > 5.0 (Antes era 6.0)
+        if current_x > 5.0:
+            print(f"[BMW] Llegada a X=5.0. Iniciando giro de 90 grados...")
             maneuver_state = "TURN_LEFT"
             turn_start_heading = vehicle_heading
             driver.setCruisingSpeed(2.0) # Velocidad baja para giro
@@ -205,8 +205,10 @@ while driver.step() != -1:
         delta_angle = normalize_angle(vehicle_heading - turn_start_heading)
         
         # 90 grados son pi/2 = 1.57 radianes
-        # Usamos abs por si el giro es horario/antihorario
-        if abs(delta_angle) >= 1.50: # Un poco menos de 1.57 para compensar inercia
+        # Usamos 1.55 para ser mas preciso (casi 90 exactos)
+        if abs(delta_angle) >= 1.55: 
+            print(f"[BMW] 🛑 Giro completado ({math.degrees(delta_angle):.1f}º). Parando motor.")
+            maneuver_state = "STOPPED"
             print(f"[BMW] 🛑 Giro completado ({math.degrees(delta_angle):.1f}º). Parando motor.")
             maneuver_state = "STOPPED"
             
