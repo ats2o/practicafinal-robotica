@@ -170,17 +170,17 @@ while driver.step() != -1:
     vehicle_position = (float(gps_vals[0]), float(gps_vals[2]))
     
     # LIGICA DE PARADA DE EMERGENCIA
-    # Avanzar recto hasta X=0.0 (Mitad del mapa, muy lejos del muro)
+    # Avanzar recto hasta X=6.0 (Aprox 9m del muro, "x3" margen inicial)
     
     current_x = float(gps_vals[0])
     
     # Debug para el usuario
     # print(f"[BMW] Posicion X actual: {current_x:.2f}")
     
-    if current_x > 0.0:
+    if current_x > 6.0:
         driver.setCruisingSpeed(0.0)
         driver.setSteeringAngle(0.0)
-        print("[BMW] 🛑 Límite alcanzado (X > 0.0). Parando motor.")
+        print("[BMW] 🛑 Límite alcanzado (X > 6.0). Parando motor.")
     else:
         driver.setCruisingSpeed(3.0)
         driver.setSteeringAngle(0.0)
