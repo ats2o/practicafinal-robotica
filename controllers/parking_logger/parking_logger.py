@@ -40,18 +40,15 @@ class ParkingSpot:
     id: str
     side: str
     x: float
-    y: float
+    z: float
     status: str = "UNKNOWN"
     scan_position: Tuple[float, float] = None  # Posición desde donde escanear
     
     def __post_init__(self):
-        # Calcular posición de escaneo (frente a la plaza)
-        if self.side == "R":
-            # Plaza a la derecha, nos colocamos a la izquierda (Y más positivo)
-            self.scan_position = (self.x - 1.0, self.y + 3.5)
-        else:
-            # Plaza a la izquierda, nos colocamos a la derecha (Y más negativo)
-            self.scan_position = (self.x - 1.0, self.y - 3.5)
+        # Calcular posición de escaneo (en el pasillo, frente a la plaza)
+        # Asumimos que el pasillo está en Z=0 (centro de la carretera)
+        # Mantenemos el offset en X para llegar un poco antes del centro
+        self.scan_position = (self.x, 0.0)
 
 
 def clamp(value: float, minimum: float, maximum: float) -> float:
@@ -105,7 +102,10 @@ def navigate_to_point(driver: Driver, current_pos: Tuple[float, float],
     target_angle = math.atan2(target[1] - current_pos[1], target[0] - current_pos[0])
     angle_error = normalize_angle(target_angle - current_heading)
     
-    steering = clamp(KP_STEERING * angle_error, -MAX_STEER_ANGLE, MAX_STEER_ANGLE)
+    # En X-Z, Z es eje derecha. Angulo positivo es giro DERECHA.
+    # Steering positivo es giro IZQUIERDA.
+    # Por tanto, invertimos el error para el steering.
+    steering = clamp(-KP_STEERING * angle_error, -MAX_STEER_ANGLE, MAX_STEER_ANGLE)
     
     driver.setSteeringAngle(steering)
     driver.setCruisingSpeed(speed)
@@ -172,7 +172,7 @@ while driver.step() != -1:
                     id=spot["id"],
                     side=spot["side"],
                     x=float(spot["x"]),
-                    y=float(spot["y"])
+                    z=float(spot["z"])
                 )
                 for spot in spots_data
             ]
@@ -180,9 +180,9 @@ while driver.step() != -1:
             print(f"[BMW] ✓ Mapa recibido: {len(parking_spots)} plazas")
             print("-" * 70)
             for idx, spot in enumerate(parking_spots, 1):
-                scan_x, scan_y = spot.scan_position
-                print(f"  {idx}. {spot.id:20s} [{spot.side}] en ({spot.x:6.2f}, {spot.y:6.2f})")
-                print(f"      → Posición de escaneo: ({scan_x:6.2f}, {scan_y:6.2f})")
+                scan_x, scan_z = spot.scan_position
+                print(f"  {idx}. {spot.id:20s} [{spot.side}] en ({spot.x:6.2f}, {spot.z:6.2f})")
+                print(f"      → Posición de escaneo: ({scan_x:6.2f}, {scan_z:6.2f})")
             print("-" * 70)
             
             send_message(emitter, {"type": "ACK_SPOT_MAP", "count": len(parking_spots)})
@@ -196,15 +196,17 @@ while driver.step() != -1:
     if not parking_map_received:
         continue
     
-    # Actualizar posición
-    gps_x, gps_y, _ = gps.getValues()
-    vehicle_position = (float(gps_x), float(gps_y))
+    # Actualizar posición (Webots: X, Z plano suelo)
+    gps_vals = gps.getValues()
+    vehicle_position = (float(gps_vals[0]), float(gps_vals[2]))
     
     # Calcular heading
     if last_position is not None:
         dx = vehicle_position[0] - last_position[0]
         dy = vehicle_position[1] - last_position[1]
         if abs(dx) + abs(dy) > 0.002:
+            # En plano X-Z de Webots (X forward, Z right):
+            # atan2(dz, dx) nos da el ángulo.
             instant_heading = math.atan2(dy, dx)
             heading_smooth = (HEADING_SMOOTH_FACTOR * instant_heading +
                             (1 - HEADING_SMOOTH_FACTOR) * heading_smooth)
@@ -323,11 +325,9 @@ while driver.step() != -1:
 
     elif system_state == "APPROACHING":
         if free_spot_found:
-             # Navegar hacia el centro de la plaza (o un punto seguro de entrada)
-             # Ajustamos un poco el target para no chocar con el fondo si es muy profundo, 
-             # o simplemente usamos (x, y) de la plaza.
-             # Las plazas parecen ser areas rectangulares. (x,y) es el centro.
-             target = (free_spot_found.x, free_spot_found.y)
+             # Navegar hacia la plaza encontrada
+             # Target: (spot.x, spot.z)
+             target = (free_spot_found.x, free_spot_found.z)
              
              # Usamos una tolerancia generosa para "llegar"
              reached = navigate_to_point(driver, vehicle_position, vehicle_heading,

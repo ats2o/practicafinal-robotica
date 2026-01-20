@@ -50,10 +50,10 @@ def send_json(tx, payload: Dict[str, Any]) -> None:
         print(f"[Supervisor] Error: {e}")
 
 
-def get_translation_xy(node) -> Tuple[float, float]:
+def get_translation_xz(node) -> Tuple[float, float]:
     f = node.getField("translation")
     v = f.getSFVec3f()
-    return float(v[0]), float(v[1])
+    return float(v[0]), float(v[2])
 
 
 # Inicialización
@@ -73,15 +73,15 @@ for spot_def, side in SPOT_DEFS:
     if node is None:
         print(f"[Supervisor] ERROR: No se encuentra '{spot_def}'")
         continue
-    x, y = get_translation_xy(node)
+    x, z = get_translation_xz(node)
     spots.append({
         "id": spot_def,
         "side": side,
         "x": x,
-        "y": y,
+        "z": z,
         "node": node,
     })
-    print(f"[Supervisor] Plaza: {spot_def} ({side}) en ({x:.2f}, {y:.2f})")
+    print(f"[Supervisor] Plaza: {spot_def} ({side}) en ({x:.2f}, {z:.2f})")
 
 # Ocultar líneas del Lidar
 lidar_node = sup.getFromDef(LIDAR_DEF)
@@ -104,7 +104,7 @@ for sid, occ in occupied.items():
 # Mensaje de mapa
 spot_map = {
     "type": "SPOT_MAP",
-    "spots": [{"id": s["id"], "side": s["side"], "x": s["x"], "y": s["y"]} for s in spots],
+    "spots": [{"id": s["id"], "side": s["side"], "x": s["x"], "z": s["z"]} for s in spots],
 }
 
 last_send = 0.0
