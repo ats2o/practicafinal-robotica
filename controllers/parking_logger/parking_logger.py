@@ -169,20 +169,49 @@ while driver.step() != -1:
     gps_vals = gps.getValues()
     vehicle_position = (float(gps_vals[0]), float(gps_vals[2]))
     
-    # LIGICA DE PARADA DE EMERGENCIA
-    # Avanzar recto hasta X=6.0 (Aprox 9m del muro, "x3" margen inicial)
+    # LIGICA DE NAVEGACION: RECTO - GIRO - STOP
     
+    # Estados de maniobra manual
+    # Definidos fuera del loop si fuera una clase, pero aqui usamos variables globales/locales
+    # Necesitamos persistencia entre iteraciones.
+    # Usaremos una variable 'maneuver_state' que debe inicializarse ANTES del loop.
+    # Como no puedo editar fuera del loop facilmente con replace_file_content sin contexto,
+    # voy a usar un "truco" de inicialización lazy o asumir que edito el bloque entero.
+    
+    if 'maneuver_state' not in locals():
+        maneuver_state = "FORWARD"
+        turn_start_heading = 0.0
+
     current_x = float(gps_vals[0])
     
-    # Debug para el usuario
-    # print(f"[BMW] Posicion X actual: {current_x:.2f}")
-    
-    if current_x > 6.0:
+    if maneuver_state == "FORWARD":
+        # Avanzar recto hsta X > 6.0
+        if current_x > 6.0:
+            print(f"[BMW] Llegada a X=6.0. Iniciando giro de 90 grados...")
+            maneuver_state = "TURN_LEFT"
+            turn_start_heading = vehicle_heading
+            driver.setCruisingSpeed(2.0) # Velocidad baja para giro
+            driver.setSteeringAngle(0.6) # Giro a la IZQUIERDA (positivo)
+        else:
+            driver.setCruisingSpeed(3.0)
+            driver.setSteeringAngle(0.0)
+            
+    elif maneuver_state == "TURN_LEFT":
+        # Mantener giro hasta 90 grados
+        driver.setCruisingSpeed(2.0)
+        driver.setSteeringAngle(0.6)
+        
+        # Calcular cambio de angulo
+        delta_angle = normalize_angle(vehicle_heading - turn_start_heading)
+        
+        # 90 grados son pi/2 = 1.57 radianes
+        # Usamos abs por si el giro es horario/antihorario
+        if abs(delta_angle) >= 1.50: # Un poco menos de 1.57 para compensar inercia
+            print(f"[BMW] 🛑 Giro completado ({math.degrees(delta_angle):.1f}º). Parando motor.")
+            maneuver_state = "STOPPED"
+            
+    elif maneuver_state == "STOPPED":
         driver.setCruisingSpeed(0.0)
-        driver.setSteeringAngle(0.0)
-        print("[BMW] 🛑 Límite alcanzado (X > 6.0). Parando motor.")
-    else:
-        driver.setCruisingSpeed(3.0)
         driver.setSteeringAngle(0.0)
 
 print("\n[BMW] Simulación finalizada\n")
