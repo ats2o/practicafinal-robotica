@@ -25,8 +25,8 @@ STOP_SPEED = 0.0
 
 # Detección con Lidar
 LIDAR_RANGE_MIN = 0.2       # Distancia mínima válida
-LIDAR_RANGE_MAX = 5.0       # Distancia máxima válida
-OBSTACLE_THRESHOLD = 25     # Puntos necesarios para detectar vehículo
+LIDAR_RANGE_MAX = 6.0       # Distancia máxima válida (Aumentado para ver mejor)
+OBSTACLE_THRESHOLD = 5      # Puntos necesarios para detectar vehículo (Reducido para ser más sensible)
 SCAN_FRAMES = 30            # Frames escaneando en cada plaza
 
 # Navegación
@@ -325,16 +325,17 @@ while driver.step() != -1:
 
     elif system_state == "APPROACHING":
         if free_spot_found:
-             # Navegar hacia la plaza encontrada
-             # Target: (spot.x, spot.z)
-             target = (free_spot_found.x, free_spot_found.z)
+             # Navegar hacia ALINEARSE con la plaza (Paralelo)
+             # Target: (spot.x, 0.0)
+             # Simplemente avanzamos por el pasillo hasta estar a la altura de la plaza
+             target = (free_spot_found.x, 0.0)
              
-             # Usamos una tolerancia generosa para "llegar"
+             # Usamos una tolerancia estricta en X
              reached = navigate_to_point(driver, vehicle_position, vehicle_heading,
-                                        target, APPROACH_SPEED, tolerance=1.0)
+                                        target, APPROACH_SPEED, tolerance=0.2)
              
              if reached:
-                 print(f"\n[BMW] 🏁 Llegada a la plaza {free_spot_found.id}")
+                 print(f"\n[BMW] 🏁 Alineado con la plaza {free_spot_found.id}")
                  system_state = "FINAL"
     
     elif system_state == "FINAL":
