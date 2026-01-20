@@ -205,15 +205,14 @@ while driver.step() != -1:
         delta_angle = normalize_angle(vehicle_heading - turn_start_heading)
         
         # 90 grados son pi/2 = 1.57 radianes
-        # Bajamos a 1.30 para asegurar que pare ANTES (con inercia llegara a 90)
-        if abs(delta_angle) >= 1.30: 
-            print(f"[BMW] 🛑 Giro completado ({math.degrees(delta_angle):.1f}º). Parando motor.")
-            maneuver_state = "STOPPED"
-            print(f"[BMW] 🛑 Giro completado ({math.degrees(delta_angle):.1f}º). Parando motor.")
+        # Bajamos a 1.0 para cortar MUCHO ANTES y frenar en seco
+        if abs(delta_angle) >= 1.0: 
+            print(f"[BMW] 🛑 Giro completado ({math.degrees(delta_angle):.1f}º). Parando motor y FRENANDO.")
             maneuver_state = "STOPPED"
             
     elif maneuver_state == "STOPPED":
         driver.setCruisingSpeed(0.0)
         driver.setSteeringAngle(0.0)
+        driver.setBrakeIntensity(1.0) # FRENADO TOTAL
 
 print("\n[BMW] Simulación finalizada\n")
