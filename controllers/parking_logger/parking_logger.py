@@ -191,7 +191,7 @@ while driver.step() != -1:
             maneuver_state = "TURN_LEFT"
             turn_start_heading = vehicle_heading
             driver.setCruisingSpeed(2.0) # Velocidad baja para giro
-            driver.setSteeringAngle(0.6) # Giro a la IZQUIERDA (positivo)
+            driver.setSteeringAngle(-0.6) # Giro a la IZQUIERDA (negativo segun observacion)
         else:
             driver.setCruisingSpeed(3.0)
             driver.setSteeringAngle(0.0)
@@ -199,7 +199,7 @@ while driver.step() != -1:
     elif maneuver_state == "TURN_LEFT":
         # Mantener giro hasta 90 grados
         driver.setCruisingSpeed(2.0)
-        driver.setSteeringAngle(0.6)
+        driver.setSteeringAngle(-0.6)
         
         # Calcular cambio de angulo
         delta_angle = normalize_angle(vehicle_heading - turn_start_heading)
