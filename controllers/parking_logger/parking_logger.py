@@ -170,12 +170,17 @@ while driver.step() != -1:
     vehicle_position = (float(gps_vals[0]), float(gps_vals[2]))
     
     # LIGICA SIMPLIFICADA DE EMERGENCIA:
-    # Solo avanzar recto.
-    # Velocidad: 5.0
-    # Steering: 0.0
+    # Solo avanzar recto hasta X=12.0
     
-    driver.setCruisingSpeed(5.0)
-    driver.setSteeringAngle(0.0)
+    current_x = vehicle_position[0]
+    
+    if current_x > 12.0:
+        driver.setCruisingSpeed(0.0)
+        driver.setSteeringAngle(0.0)
+        # print("[BMW] 🛑 Fin de trayecto (Muro). X > 12.0")
+    else:
+        driver.setCruisingSpeed(5.0)
+        driver.setSteeringAngle(0.0)
     
     # Imprimir posición de vez en cuando para debug
     # print(f"[BMW] Posición: ({vehicle_position[0]:.2f}, {vehicle_position[1]:.2f})")
