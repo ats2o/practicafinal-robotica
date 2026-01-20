@@ -149,7 +149,7 @@ heading_smooth = 0.0
 HEADING_SMOOTH_FACTOR = 0.15
 
 # Máquina de estados
-system_state = "WAITING"  # WAITING -> NAVIGATING -> SCANNING -> FINAL
+system_state = "WAITING"  # WAITING -> NAVIGATING -> SCANNING -> APPROACHING -> FINAL
 current_spot_idx = 0
 scan_frame_count = 0
 scan_samples = []
@@ -285,8 +285,7 @@ while driver.step() != -1:
             else:
                 spot.status = "FREE"
                 result = "✅ LIBRE"
-                if free_spot_found is None:
-                    free_spot_found = spot
+                free_spot_found = spot
             
             print("\n" + "=" * 70)
             print(f"[RESULTADO] {spot.id} → {result}")
@@ -304,17 +303,39 @@ while driver.step() != -1:
                 "min_dist": min(obstacles) if obstacles else None
             })
             
-            # Siguiente plaza
-            current_spot_idx += 1
-            
-            if current_spot_idx >= len(parking_spots):
-                # Terminamos todas las plazas
-                system_state = "FINAL"
+            if spot.status == "FREE":
+                # ENCONTRAMOS PLAZA LIBRE -> DEJAMOS DE ESCANEAR Y VAMOS A ELLA
+                print(f"[BMW] 🎯 ¡Plaza libre encontrada! ({spot.id})")
+                print(f"[BMW] 🛑 Cancelando resto de escaneos. Iniciando aproximación...")
+                system_state = "APPROACHING"
             else:
-                # Ir a la siguiente plaza
-                next_spot = parking_spots[current_spot_idx]
-                print(f"[BMW] 🚗 Navegando hacia plaza {current_spot_idx + 1}: {next_spot.id}\n")
-                system_state = "NAVIGATING"
+                # Siguiente plaza
+                current_spot_idx += 1
+                
+                if current_spot_idx >= len(parking_spots):
+                    # Terminamos todas las plazas
+                    system_state = "FINAL"
+                else:
+                    # Ir a la siguiente plaza
+                    next_spot = parking_spots[current_spot_idx]
+                    print(f"[BMW] 🚗 Navegando hacia plaza {current_spot_idx + 1}: {next_spot.id}\n")
+                    system_state = "NAVIGATING"
+
+    elif system_state == "APPROACHING":
+        if free_spot_found:
+             # Navegar hacia el centro de la plaza (o un punto seguro de entrada)
+             # Ajustamos un poco el target para no chocar con el fondo si es muy profundo, 
+             # o simplemente usamos (x, y) de la plaza.
+             # Las plazas parecen ser areas rectangulares. (x,y) es el centro.
+             target = (free_spot_found.x, free_spot_found.y)
+             
+             # Usamos una tolerancia generosa para "llegar"
+             reached = navigate_to_point(driver, vehicle_position, vehicle_heading,
+                                        target, APPROACH_SPEED, tolerance=1.0)
+             
+             if reached:
+                 print(f"\n[BMW] 🏁 Llegada a la plaza {free_spot_found.id}")
+                 system_state = "FINAL"
     
     elif system_state == "FINAL":
         # Detener el vehículo
