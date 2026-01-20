@@ -205,8 +205,8 @@ while driver.step() != -1:
         delta_angle = normalize_angle(vehicle_heading - turn_start_heading)
         
         # 90 grados son pi/2 = 1.57 radianes
-        # Usamos 1.55 para ser mas preciso (casi 90 exactos)
-        if abs(delta_angle) >= 1.55: 
+        # Bajamos a 1.30 para asegurar que pare ANTES (con inercia llegara a 90)
+        if abs(delta_angle) >= 1.30: 
             print(f"[BMW] 🛑 Giro completado ({math.degrees(delta_angle):.1f}º). Parando motor.")
             maneuver_state = "STOPPED"
             print(f"[BMW] 🛑 Giro completado ({math.degrees(delta_angle):.1f}º). Parando motor.")
