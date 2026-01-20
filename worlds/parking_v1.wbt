@@ -1,15 +1,13 @@
-#VRML_SIM R2023b utf8
+#VRML_SIM R2025a utf8
 
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackground.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/vehicles/protos/ackermann_vehicle/AckermannVehicle.proto"
 
 WorldInfo {
-  basicTimeStep 32
 }
 Viewpoint {
-  orientation -0.5774 0.5774 0.5774 2.1
-  position 0 18 18
+  orientation -0.07181137910880643 0.007749184676572717 0.9973881270434993 2.972202359569388
+  position 67.03297997136704 -9.899650660897708 22.750785424856115
 }
 TexturedBackground {
 }
@@ -61,7 +59,6 @@ Solid {
   children [
     Shape {
       appearance PBRAppearance {
-        baseColor 1 1 1
         roughness 0.2
         metalness 0
       }
@@ -77,7 +74,6 @@ Solid {
   children [
     Shape {
       appearance PBRAppearance {
-        baseColor 1 1 1
         roughness 0.2
         metalness 0
       }
@@ -93,7 +89,6 @@ Solid {
   children [
     Shape {
       appearance PBRAppearance {
-        baseColor 1 1 1
         roughness 0.2
         metalness 0
       }
@@ -109,7 +104,6 @@ Solid {
   children [
     Shape {
       appearance PBRAppearance {
-        baseColor 1 1 1
         roughness 0.2
         metalness 0
       }
@@ -125,7 +119,6 @@ Solid {
   children [
     Shape {
       appearance PBRAppearance {
-        baseColor 1 1 1
         roughness 0.2
         metalness 0
       }
@@ -141,7 +134,6 @@ Solid {
   children [
     Shape {
       appearance PBRAppearance {
-        baseColor 1 1 1
         roughness 0.2
         metalness 0
       }
@@ -157,7 +149,6 @@ Solid {
   children [
     Shape {
       appearance PBRAppearance {
-        baseColor 1 1 1
         roughness 0.2
         metalness 0
       }
@@ -173,7 +164,6 @@ Solid {
   children [
     Shape {
       appearance PBRAppearance {
-        baseColor 1 1 1
         roughness 0.2
         metalness 0
       }
@@ -189,7 +179,6 @@ Solid {
   children [
     Shape {
       appearance PBRAppearance {
-        baseColor 1 1 1
         roughness 0.2
         metalness 0
       }
@@ -209,12 +198,6 @@ Solid {
         roughness 0.8
         metalness 0
       }
-      geometry Text {
-        string ["P1"]
-        fontStyle FontStyle {
-          size 0.4
-        }
-      }
     }
   ]
   name "label_p1"
@@ -227,12 +210,6 @@ Solid {
         baseColor 0 0 0
         roughness 0.8
         metalness 0
-      }
-      geometry Text {
-        string ["P2"]
-        fontStyle FontStyle {
-          size 0.4
-        }
       }
     }
   ]
@@ -247,12 +224,6 @@ Solid {
         roughness 0.8
         metalness 0
       }
-      geometry Text {
-        string ["P3"]
-        fontStyle FontStyle {
-          size 0.4
-        }
-      }
     }
   ]
   name "label_p3"
@@ -265,12 +236,6 @@ Solid {
         baseColor 0 0 0
         roughness 0.8
         metalness 0
-      }
-      geometry Text {
-        string ["P4"]
-        fontStyle FontStyle {
-          size 0.4
-        }
       }
     }
   ]
@@ -285,12 +250,6 @@ Solid {
         roughness 0.8
         metalness 0
       }
-      geometry Text {
-        string ["P5"]
-        fontStyle FontStyle {
-          size 0.4
-        }
-      }
     }
   ]
   name "label_p5"
@@ -304,18 +263,13 @@ Solid {
         roughness 0.8
         metalness 0
       }
-      geometry Text {
-        string ["P6"]
-        fontStyle FontStyle {
-          size 0.4
-        }
-      }
     }
   ]
   name "label_p6"
 }
 Solid {
-  translation -6 0.4 3.4
+  translation -6 0.3999999999999996 0.39803902309691
+  rotation 0.08021899608769101 -0.1810069655312653 -0.9802047699821944 1.2754853456102789e-16
   children [
     Shape {
       appearance PBRAppearance {
@@ -335,9 +289,12 @@ Solid {
   physics Physics {
     mass 5
   }
+  linearVelocity -3.3314929249765033e-17 -5.5634035778744225e-18 -8.0929720920307e-06
+  angularVelocity 1.0658141036401387e-16 -9.838284033601385e-17 -1.5092477956982845e-17
 }
 Solid {
-  translation 6 0.4 3.6
+  translation 6 0.40000000000000047 0.39803756095100057
+  rotation 0.129273990432703 0.20683838469233432 -0.9697969467963238 1.319138180941336e-16
   children [
     Shape {
       appearance PBRAppearance {
@@ -357,30 +314,6 @@ Solid {
   physics Physics {
     mass 5
   }
-}
-AckermannVehicle {
-  translation -13 0.2 0
-  rotation 0 1 0 0
-  name "parking_car"
-  controller "parking_logger"
-  sensorsSlot [
-    DistanceSensor {
-      translation 1.2 0.35 0
-      rotation 0 1 0 0
-      name "ds_front"
-      lookupTable [
-        0 0 0
-        8 8 0
-      ]
-    }
-    DistanceSensor {
-      translation 0.2 0.35 0.7
-      rotation 0 1 0 1.5708
-      name "ds_right"
-      lookupTable [
-        0 0 0
-        5 5 0
-      ]
-    }
-  ]
+  linearVelocity -9.43662548634769e-19 2.926090915828816e-17 3.472995827756373e-06
+  angularVelocity -5.329070518200719e-17 -6.558856022400865e-17 -1.1232712964814886e-17
 }

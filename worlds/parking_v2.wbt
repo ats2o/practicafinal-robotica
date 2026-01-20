@@ -1,0 +1,408 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/vehicles/protos/bmw/BmwX5.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/Floor.proto"
+
+WorldInfo {
+  basicTimeStep 16
+  contactProperties [
+    ContactProperties {
+      coulombFriction [
+        8
+      ]
+      softCFM 1e-05
+      bumpSound ""
+      rollSound ""
+      slideSound ""
+    }
+  ]
+}
+Viewpoint {
+  orientation -0.6201199570282868 -0.004521979602133816 0.7844939710384737 3.1582605985163794
+  position 18.627227991518335 0.8990716349665002 69.44795626284696
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Floor {
+  size 30 20
+}
+DEF WALL1 Solid {
+  translation -1.55214e-05 10.05 1.23528
+  rotation 0.9999050290598706 0.013773441815892342 0.0004745116684072011 2.71806e-16
+  children [
+    DEF WALLS Shape {
+      appearance PBRAppearance {
+        baseColorMap ImageTexture {
+          url [
+            "../../../../../../Descargas/red_brick_wall.jpg"
+          ]
+        }
+        metalness 0
+      }
+      geometry DEF Wall Box {
+        size 30 0.1 2.5
+      }
+    }
+  ]
+  boundingObject USE WALLS
+}
+DEF WALL2 Solid {
+  translation 9.709795854645128e-17 -10.05 1.2359108577529778
+  rotation 1 0 0 0
+  children [
+    USE WALLS
+  ]
+  name "solid(1)"
+  boundingObject USE WALLS
+  linearVelocity 1.2494007276095989e-18 -1.847208016217631e-18 8.46969149150215e-06
+  angularVelocity 9.298348388732813e-19 8.221330313846985e-19 -1.1345467932223475e-22
+}
+DEF WALL3 Solid {
+  translation 15.05 1.5534799999811307e-05 1.2401898490799306
+  rotation 2.8524835284267896e-16 -2.819449587765011e-16 -1 1.570795649151449
+  children [
+    DEF WALLSS Shape {
+      appearance PBRAppearance {
+        baseColorMap ImageTexture {
+          url [
+            "../../../../../../Descargas/red_brick_wall.jpg"
+          ]
+        }
+        metalness 0
+      }
+      geometry Box {
+        size 20 0.1 2.5
+      }
+    }
+  ]
+  name "solid(2)"
+  boundingObject USE WALLSS
+  linearVelocity -9.102627338645818e-18 -2.308507450937466e-18 -2.027319536489492e-09
+  angularVelocity 4.1876134890591676e-24 -6.276385162391811e-18 -8.827203276191503e-20
+}
+DEF BMW BmwX5 {
+  hidden position_0_0 8.064268841796378e-07
+  hidden position2_0_0 95.98582661628143
+  hidden position_0_1 9.355206963549073e-07
+  hidden position2_0_1 95.98566684462631
+  hidden position_0_2 89.66818367952519
+  hidden position_0_3 89.674265714738
+  hidden position_0_9 0.12049026258917182
+  hidden rotation_1 -0.00018836939264579592 -0.9999999811487851 -4.711052240112881e-05 6.085950889808841
+  hidden rotation_2 0.00019117093928173196 0.9999999806216797 -4.701395893870384e-05 6.087188428755032
+  hidden rotation_3 0 -1 0 5.855382608393002
+  hidden rotation_4 0 1 0 5.874592477214836
+  hidden translation_22 -0.03149660892221773 0.24201783118802744 -0.03535333654534678
+  hidden rotation_22 0.7466598432279095 0 -0.6652060421485011 0.12049026258917109
+  translation -12.3641 -0.124655 0.30727
+  rotation 0.0006813654210383643 -0.9186131193371918 -0.39515752899667417 0.004878062958567995
+  controller "parking_logger"
+  sensorsSlotTop [
+    DEF lidar Lidar {
+      horizontalResolution 534
+      fieldOfView 180
+      verticalFieldOfView 0.703125
+      minRange 0.2
+      maxRange 30
+    }
+  ]
+  sensorsSlotCenter [
+    GPS {
+    }
+  ]
+}
+BmwX5 {
+  hidden position_0_0 -2.7832058501654366e-10
+  hidden position2_0_0 -9.886598955196935e-07
+  hidden position_0_1 2.717702578394195e-10
+  hidden position2_0_1 -9.886609054645145e-07
+  hidden position_0_2 -0.0007460002960041975
+  hidden position_0_3 -0.0007460004569218279
+  hidden linearVelocity_0 -7.500916753733074e-09 3.878822840642792e-05 0.00013850566172783694
+  hidden angularVelocity_0 -5.478222264185762e-05 -1.0570298620076334e-08 -1.6476329239054833e-11
+  hidden rotation_1 -2.4988436411523094e-10 0.9999999764052468 0.00021723145622293415 3.5679491713819677e-06
+  hidden linearVelocity_1 -6.420885532998172e-09 3.268363869284608e-05 9.024441629385331e-06
+  hidden angularVelocity_1 -5.999724549138452e-05 -1.1554999828100852e-08 -1.34749985291153e-11
+  hidden rotation_2 -2.4391031992150725e-10 -0.9999999775276037 -0.00021200186740138115 3.5679491713819677e-06
+  hidden linearVelocity_2 -6.255634251608259e-09 3.268365186185803e-05 9.02445507485058e-06
+  hidden angularVelocity_2 -5.999725140417378e-05 -1.1626959203670353e-08 -1.921755009257429e-11
+  hidden rotation_3 0 1 0 0.00210322561454514
+  hidden linearVelocity_3 -8.927843816975432e-09 4.5767940309958204e-05 -3.821190278933872e-06
+  hidden angularVelocity_3 -0.00012270761243578617 -2.366699999468071e-08 -1.2108252086947904e-11
+  hidden rotation_4 0 -1 0 0.002103226175984322
+  hidden linearVelocity_4 -8.792893061964472e-09 4.5767965718943606e-05 -3.82117680892484e-06
+  hidden angularVelocity_4 -0.00012270768030727577 -2.3897983811707664e-08 -2.1241254250654802e-11
+  translation -0.801379868431612 8.561409141338347 0.3159893927286097
+  rotation -0.002290237981587219 -0.0022906844114172556 -0.999994753773696 1.5706056951388592
+  name "vehicle(2)"
+  controller "<none>"
+}
+BmwX5 {
+  hidden position_0_0 -2.7831797222607965e-10
+  hidden position2_0_0 -9.886598958681883e-07
+  hidden position_0_1 2.717711020365514e-10
+  hidden position2_0_1 -9.886609044594895e-07
+  hidden position_0_2 -0.0007460002959567087
+  hidden position_0_3 -0.000746000457032848
+  hidden linearVelocity_0 -3.5608877027049014e-10 -3.878822913002948e-05 0.0001385056617287666
+  hidden angularVelocity_0 5.47822236586848e-05 -5.264647039904041e-10 -1.6472209014070318e-11
+  hidden rotation_1 7.723135815346514e-10 0.9999992901875357 0.0011914799304826801 1.1626725913960596e-06
+  hidden linearVelocity_1 -1.9956311616295318e-10 -3.2683639315755905e-05 9.024441629737697e-06
+  hidden angularVelocity_1 5.999724659361928e-05 -5.981230147111774e-10 -1.3471431377429407e-11
+  hidden rotation_2 -1.3588554588428489e-10 -0.9999999622182728 -0.00027488807390146317 9.88880397262408e-07
+  hidden linearVelocity_2 -3.6481776091182697e-10 -3.268365246132859e-05 9.02445507298281e-06
+  hidden angularVelocity_2 5.99972525247211e-05 -5.261724619221637e-10 -1.921718543520533e-11
+  hidden rotation_3 0 1 0 0.0013867066830734389
+  hidden linearVelocity_3 -3.4298658650019147e-10 -4.5767941183264575e-05 -3.821190278022052e-06
+  hidden angularVelocity_3 0.00012270761472297085 -1.1888647249755012e-09 -1.2104613966273352e-11
+  hidden rotation_4 0 -1 0 0.0008944328916439328
+  hidden linearVelocity_4 -4.779418355046807e-10 -4.5767966542106236e-05 -3.821176809827472e-06
+  hidden angularVelocity_4 0.0001227076825798595 -9.578939455198584e-10 -2.1243374088754766e-11
+  translation 3.9795127967027457 -8.404427742207304 0.3159893927286098
+  rotation 0.002290235763233394 -0.002290253291588232 0.9999947547662483 1.5707948879450961
+  name "vehicle(1)"
+  controller "<none>"
+}
+BmwX5 {
+  hidden position_0_0 -2.783192550151947e-10
+  hidden position2_0_0 -9.886598967759006e-07
+  hidden position_0_1 2.717691033630763e-10
+  hidden position2_0_1 -9.886609040798223e-07
+  hidden position_0_2 -0.0007460002960067325
+  hidden position_0_3 -0.0007460004569403267
+  hidden linearVelocity_0 4.55852832883361e-11 -3.878822912182655e-05 0.0001385056617274622
+  hidden angularVelocity_0 5.478222366263371e-05 4.081391805130749e-11 -1.6476125677134583e-11
+  hidden rotation_1 2.3198101459433027e-10 0.9999998752097892 0.0004995802297337375 2.538975968807971e-06
+  hidden linearVelocity_1 1.388881598023852e-10 -3.268363932171628e-05 9.024441628900533e-06
+  hidden angularVelocity_1 5.999724660142103e-05 2.316311915197218e-11 -1.347422515579895e-11
+  hidden rotation_2 2.2923544072122917e-10 -0.9999998803670306 -0.0004891481620535733 2.538975968807971e-06
+  hidden linearVelocity_2 -2.636243838579535e-11 -3.268365245646552e-05 9.024455076017624e-06
+  hidden angularVelocity_2 5.999725252535324e-05 9.511587021710077e-11 -1.9216226474128936e-11
+  hidden rotation_3 0 1 0 0.00210322561454514
+  hidden linearVelocity_3 1.309581320722243e-10 -4.576794116738397e-05 -3.821190279531322e-06
+  hidden angularVelocity_3 0.00012270761468322118 8.183094639468166e-11 -1.210262642670158e-11
+  hidden rotation_4 0 -1 0 0.002103226175984322
+  hidden linearVelocity_4 -3.993210486854283e-12 -4.576796654973632e-05 -3.8211768083361125e-06
+  hidden angularVelocity_4 0.00012270768259682222 3.1280481400802385e-10 -2.124342913101086e-11
+  translation -5.268350045572592 -8.680638901518794 0.3159893927286098
+  rotation 0.0022902357630990395 -0.0022902295746632688 0.9999947548205663 1.570805243712163
+  name "vehicle(3)"
+  controller "<none>"
+}
+DEF LineaParking1(R) Pose {
+  translation -5.27667 -6.05012 0
+  children [
+    DEF LineaParking1(R) Group {
+      children [
+        DEF BarraLateralIzquierda Solid {
+          translation -1.94333 -0.99005 0
+          rotation 0.0005350594453579515 -0.0005331589399225718 0.9999997147264268 1.5708002797724128
+          children [
+            DEF BarraLateral Shape {
+              appearance PBRAppearance {
+                metalness 0
+              }
+              geometry Box {
+                size 5.9 0.1 0.01
+              }
+            }
+          ]
+          name "solid(3)"
+          boundingObject USE BarraLateral
+        }
+        DEF BarraLateralDerecha Solid {
+          translation 1.94667 -0.99005 0
+          rotation 0.0005341037083524255 -0.000532203204191489 0.9999997157464486 1.570800278755799
+          children [
+            USE BarraLateral
+          ]
+          name "solid(4)"
+          boundingObject USE BarraLateral
+        }
+        DEF BarraFrontal Solid {
+          translation -0.00333 1.9801 0
+          rotation 0.9999999946428813 0.00010347908105786695 2.5134122910332195e-06 0.02795399236711166
+          children [
+            DEF BARRAFRONTAL Shape {
+              appearance PBRAppearance {
+                metalness 0
+              }
+              geometry Box {
+                size 4 0.1 0.01
+              }
+            }
+          ]
+          name "solid(9)"
+          boundingObject USE BARRAFRONTAL
+        }
+      ]
+    }
+  ]
+}
+DEF LineaParking2(L) Pose {
+  translation -0.66333 6.0534 0
+  children [
+    DEF LineaParking2(L) Group {
+      children [
+        DEF BarraLateralIzquierda Solid {
+          translation -1.97667 0.98677 0
+          rotation 0.0009423221939404982 0.0007616927536052253 0.9999992659262465 1.5715310928390687
+          children [
+            DEF BarraLateral Shape {
+              appearance PBRAppearance {
+                metalness 0
+              }
+              geometry Box {
+                size 5.9 0.1 0.01
+              }
+            }
+          ]
+          name "solid(23)"
+          boundingObject USE BarraLateral
+        }
+        DEF BarraLateralDerecha Solid {
+          translation 1.9633299113530427 0.9965953365813522 0.009758368913566403
+          rotation -0.0008154580591613385 0.0008014297223781073 0.9999993463690634 1.570787523243759
+          children [
+            USE BarraLateral
+          ]
+          name "solid(24)"
+          boundingObject USE BarraLateral
+          physics Physics {
+          }
+          linearVelocity -1.4299130520034655e-08 1.2260930104158738e-09 -8.41655272359398e-07
+          angularVelocity -6.927034566623861e-08 -4.093159221245953e-06 4.558464347828313e-09
+        }
+        DEF BarraFrontal Solid {
+          translation 0.01333 -1.98338 0
+          rotation 0.9999999429010418 -0.00033343840448885585 -5.492488979132125e-05 0.08953450622412444
+          children [
+            DEF BARRAFRONTAL Shape {
+              appearance PBRAppearance {
+                metalness 0
+              }
+              geometry Box {
+                size 4 0.1 0.01
+              }
+            }
+          ]
+          name "solid(25)"
+          boundingObject USE BARRAFRONTAL
+        }
+      ]
+    }
+  ]
+}
+DEF LineaParking3(R) Pose {
+  translation 2.66333 -6.05012 0
+  children [
+    DEF LineaParking3(R) Group {
+      children [
+        DEF BarraLateralIzquierda Solid {
+          translation -0.52333 -0.99005 0
+          rotation 0.0005327757219950597 -0.0005344874855233724 0.9999997152365383 1.5708002841042301
+          children [
+            DEF BarraLateral Shape {
+              appearance PBRAppearance {
+                metalness 0
+              }
+              geometry Box {
+                size 5.9 0.1 0.01
+              }
+            }
+          ]
+          name "solid(5)"
+          boundingObject USE BarraLateral
+        }
+        DEF BarraLateralDerecha Solid {
+          translation 3.37667 -0.99005 0
+          rotation 0.0005336147470493238 -0.0005336522469934174 0.99999971523525 1.5708002849407523
+          children [
+            USE BarraLateral
+          ]
+          name "solid(13)"
+          boundingObject USE BarraLateral
+        }
+        DEF BarraFrontal Solid {
+          translation 1.42667 1.9801 0
+          rotation 0.999999999999979 -2.0456864924705247e-07 -3.5856267787031742e-09 0.02795399241375706
+          children [
+            DEF BARRAFRONTAL Shape {
+              appearance PBRAppearance {
+                metalness 0
+              }
+              geometry Box {
+                size 4 0.1 0.01
+              }
+            }
+          ]
+          name "solid(14)"
+          boundingObject USE BARRAFRONTAL
+        }
+      ]
+    }
+  ]
+}
+DEF LineaParking4(L) Pose {
+  translation 8.83333 6.05012 0
+  children [
+    DEF LineaParking4(L) Group {
+      children [
+        DEF BarraLateralIzquierda Solid {
+          translation -1.93333 0.99005 0
+          rotation 9.371180754850762e-05 -9.430096536518924e-05 0.9999999911627125 1.5708000049225166
+          children [
+            DEF BarraLateral Shape {
+              appearance PBRAppearance {
+                metalness 0
+              }
+              geometry Box {
+                size 5.9 0.1 0.01
+              }
+            }
+          ]
+          name "solid(50)"
+        }
+        DEF BarraLateralDerecha Solid {
+          translation 1.93667 0.99005 0
+          rotation 9.347685854037169e-05 -9.406601830891275e-05 0.9999999912068306 1.5708000048779402
+          children [
+            USE BarraLateral
+          ]
+          name "solid(51)"
+        }
+        DEF BarraFrontal Solid {
+          translation -0.00333 -1.98011 0
+          rotation 0.9999999998770298 -1.5676248618189963e-05 4.4198490781634315e-07 0.09142917805517034
+          children [
+            DEF BARRAFRONTAL Shape {
+              appearance PBRAppearance {
+                metalness 0
+              }
+              geometry Box {
+                size 4 0.1 0.01
+              }
+            }
+          ]
+          name "solid(52)"
+        }
+      ]
+    }
+  ]
+}
+Robot {
+  children [
+    Receiver {
+      channel 1
+    }
+    Emitter {
+      channel 1
+    }
+  ]
+  controller "control_parking"
+  supervisor TRUE
+}

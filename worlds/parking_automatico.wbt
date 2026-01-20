@@ -1,0 +1,287 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/vehicles/protos/bmw/BmwX5.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/Floor.proto"
+
+WorldInfo {
+  basicTimeStep 16
+  contactProperties [
+    ContactProperties {
+      coulombFriction [
+        8
+      ]
+      softCFM 1e-05
+      bumpSound ""
+      rollSound ""
+      slideSound ""
+    }
+  ]
+}
+Viewpoint {
+  orientation 0.03576229378222692 -0.9812668502020767 -0.18930511624868626 5.8270067868358515
+  position -54.753835058449944 -0.9891648926695917 32.63722633518819
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Floor {
+  size 30 20
+}
+DEF WALL1 Solid {
+  translation -1.55214e-05 10.05 1.23528
+  rotation 0.9999050290598706 0.013773441815892342 0.0004745116684072011 2.71806e-16
+  children [
+    DEF WALLS Shape {
+      appearance PBRAppearance {
+        baseColorMap ImageTexture {
+          url [
+            "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/default/worlds/textures/red_brick_wall.jpg"
+          ]
+        }
+        metalness 0
+      }
+      geometry DEF Wall Box {
+        size 30 0.1 2.5
+      }
+    }
+  ]
+  boundingObject USE WALLS
+}
+DEF WALL2 Solid {
+  translation 0 -10.05 1.23591
+  rotation 1 0 0 0
+  children [
+    USE WALLS
+  ]
+  name "solid(1)"
+  boundingObject USE WALLS
+}
+DEF WALL3 Solid {
+  translation 15.05 0 1.24019
+  rotation 0 0 -1 1.5708
+  children [
+    DEF WALLSS Shape {
+      appearance PBRAppearance {
+        baseColorMap ImageTexture {
+          url [
+            "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/default/worlds/textures/red_brick_wall.jpg"
+          ]
+        }
+        metalness 0
+      }
+      geometry Box {
+        size 20 0.1 2.5
+      }
+    }
+  ]
+  name "solid(2)"
+  boundingObject USE WALLSS
+}
+DEF WALL4 Solid {
+  translation -15.05 0 1.24019
+  rotation 0 0 -1 1.5708
+  children [
+    USE WALLSS
+  ]
+  name "solid(3)"
+  boundingObject USE WALLSS
+}
+DEF BMW BmwX5 {
+  translation -12.5 -0.41 0.4
+  controller "parking_logger"
+  sensorsSlotTop [
+    DEF lidar Lidar {
+      horizontalResolution 720
+      fieldOfView 3.14159
+      verticalFieldOfView 0.1
+      numberOfLayers 1
+      minRange 0.1
+      maxRange 15
+    }
+  ]
+  sensorsSlotCenter [
+    GPS {
+    }
+    Receiver {
+      channel 1
+    }
+    Emitter {
+      channel 1
+    }
+  ]
+}
+DEF Vehicle1 BmwX5 {
+  translation -0.720565 8.67521 0.4
+  rotation 0 0 1 -1.5707953071795862
+  name "vehicle(1)"
+  controller "<none>"
+}
+DEF Vehicle2 BmwX5 {
+  translation 3.98 -8.4 0.4
+  rotation 0 0 -1 -1.5707953071795862
+  name "vehicle(2)"
+  controller "<none>"
+}
+DEF Vehicle3 BmwX5 {
+  translation -5.27 -8.68 0.4
+  rotation 0 0 -1 -1.5707953071795862
+  name "vehicle(3)"
+  controller "<none>"
+}
+DEF LineaParking1R Pose {
+  translation -5.27 -6.05 0.01
+  children [
+    Group {
+      children [
+        DEF BarraLateralIzq1 Solid {
+          translation -1.94 -0.99 0
+          rotation 0 0 1 1.5708
+          children [
+            DEF BarraLateral Shape {
+              appearance PBRAppearance {
+                metalness 0
+              }
+              geometry Box {
+                size 5.9 0.1 0.02
+              }
+            }
+          ]
+          name "barra_izq_1"
+        }
+        DEF BarraLateralDer1 Solid {
+          translation 1.94 -0.99 0
+          rotation 0 0 1 1.5708
+          children [
+            USE BarraLateral
+          ]
+          name "barra_der_1"
+        }
+        DEF BarraFrontal1 Solid {
+          translation 0 1.98 0
+          children [
+            DEF BARRAFRONTAL Shape {
+              appearance PBRAppearance {
+                metalness 0
+              }
+              geometry Box {
+                size 4 0.1 0.02
+              }
+            }
+          ]
+          name "barra_front_1"
+        }
+      ]
+    }
+  ]
+}
+DEF LineaParking2L Pose {
+  translation -0.66 6.05 0.01
+  children [
+    Group {
+      children [
+        DEF BarraLateralIzq2 Solid {
+          translation -1.98 0.99 0
+          rotation 0 0 1 1.5708
+          children [
+            USE BarraLateral
+          ]
+          name "barra_izq_2"
+        }
+        DEF BarraLateralDer2 Solid {
+          translation 1.96 0.99 0
+          rotation 0 0 1 1.5708
+          children [
+            USE BarraLateral
+          ]
+          name "barra_der_2"
+        }
+        DEF BarraFrontal2 Solid {
+          translation 0 -1.98 0
+          children [
+            USE BARRAFRONTAL
+          ]
+          name "barra_front_2"
+        }
+      ]
+    }
+  ]
+}
+DEF LineaParking3R Pose {
+  translation 2.66 -6.05 0.01
+  children [
+    Group {
+      children [
+        DEF BarraLateralIzq3 Solid {
+          translation -0.52 -0.99 0
+          rotation 0 0 1 1.5708
+          children [
+            USE BarraLateral
+          ]
+          name "barra_izq_3"
+        }
+        DEF BarraLateralDer3 Solid {
+          translation 3.38 -0.99 0
+          rotation 0 0 1 1.5708
+          children [
+            USE BarraLateral
+          ]
+          name "barra_der_3"
+        }
+        DEF BarraFrontal3 Solid {
+          translation 1.43 1.98 0
+          children [
+            USE BARRAFRONTAL
+          ]
+          name "barra_front_3"
+        }
+      ]
+    }
+  ]
+}
+DEF LineaParking4L Pose {
+  translation 8.83 6.05 0.01
+  children [
+    Group {
+      children [
+        DEF BarraLateralIzq4 Solid {
+          translation -1.93 0.99 0
+          rotation 0 0 1 1.5708
+          children [
+            USE BarraLateral
+          ]
+          name "barra_izq_4"
+        }
+        DEF BarraLateralDer4 Solid {
+          translation 1.94 0.99 0
+          rotation 0 0 1 1.5708
+          children [
+            USE BarraLateral
+          ]
+          name "barra_der_4"
+        }
+        DEF BarraFrontal4 Solid {
+          translation 0 -1.98 0
+          children [
+            USE BARRAFRONTAL
+          ]
+          name "barra_front_4"
+        }
+      ]
+    }
+  ]
+}
+DEF SUPERVISOR Robot {
+  children [
+    Receiver {
+      channel 1
+    }
+    Emitter {
+      channel 1
+    }
+  ]
+  controller "control_parking"
+  supervisor TRUE
+}
